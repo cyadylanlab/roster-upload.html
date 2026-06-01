@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit Your Roster &middot; Father's Day Fiesta 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0d0d0d;
+    --ink:#1a1714;
+    --gold:#c9940a;
+    --gold-bright:#f5c518;
+    --gold-soft:#fff4cc;
+    --cream:#fdfcf8;
+    --border:#e2d9c8;
+    --text:#1a1714;
+    --text-mid:#5c5349;
+    --text-dim:#8a7f72;
+    --ok:#2e7d32;
+    --err:#c0392b;
+    --font-display:'Oswald',sans-serif;
+    --font-body:'Barlow',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--font-body);
+    color:var(--text);
+    background:var(--black);
+    line-height:1.6;
+    min-height:100vh;
+    padding:0 0 60px;
+  }
+  /* ---- Header ---- */
+  .masthead{
+    background:linear-gradient(160deg,#000 0%,#161310 60%,#1d1810 100%);
+    border-bottom:3px solid var(--gold);
+    padding:38px 22px 30px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .masthead::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 50% -20%,rgba(245,197,24,.16),transparent 60%);
+    pointer-events:none;
+  }
+  .kicker{
+    font-family:var(--font-display);
+    font-weight:600;
+    letter-spacing:3.5px;
+    text-transform:uppercase;
+    font-size:.78rem;
+    color:var(--gold-bright);
+    margin-bottom:8px;
+  }
+  .masthead h1{
+    font-family:var(--font-display);
+    font-weight:700;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:#fff;
+    font-size:clamp(1.7rem,5vw,2.6rem);
+    line-height:1.05;
+  }
+  .masthead p{
+    color:rgba(255,255,255,.7);
+    margin-top:10px;
+    font-size:1rem;
+    max-width:560px;
+    margin-left:auto;margin-right:auto;
+  }
+  /* ---- Card ---- */
+  .wrap{max-width:720px;margin:-18px auto 0;padding:0 18px}
+  .card{
+    background:var(--cream);
+    border:1px solid var(--border);
+    border-radius:14px;
+    box-shadow:0 24px 60px rgba(0,0,0,.45);
+    overflow:hidden;
+  }
+  .card-pad{padding:30px 28px}
+  @media(max-width:560px){.card-pad{padding:24px 18px}}
+
+  .section-label{
+    font-family:var(--font-display);
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    font-size:1.05rem;
+    color:var(--black);
+    border-bottom:2px solid var(--gold);
+    padding-bottom:6px;
+    margin-bottom:18px;
+  }
+  .field{margin-bottom:16px}
+  .field label{
+    display:block;
+    font-weight:600;
+    font-size:.9rem;
+    letter-spacing:.3px;
+    margin-bottom:6px;
+    color:var(--ink);
+  }
+  .field .req{color:var(--err);font-weight:700}
+  .field .hint{font-weight:400;color:var(--text-dim);font-size:.82rem}
+  input[type=text],input[type=email],input[type=tel],select{
+    width:100%;
+    font-family:var(--font-body);
+    font-size:1rem;
+    padding:12px 14px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    background:#fff;
+    color:var(--ink);
+    transition:border-color .15s,box-shadow .15s;
+  }
+  input:focus,select:focus{
+    outline:none;
+    border-color:var(--gold);
+    box-shadow:0 0 0 3px rgba(201,148,10,.15);
+  }
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.row2{grid-template-columns:1fr}}
+
+  /* ---- Team blocks ---- */
+  .team-block{
+    border:1px solid var(--border);
+    border-left:4px solid var(--gold);
+    border-radius:10px;
+    background:#fff;
+    padding:18px 18px 6px;
+    margin-bottom:16px;
+    position:relative;
+  }
+  .team-block .team-head{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:14px;
+  }
+  .team-block .team-num{
+    font-family:var(--font-display);
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    font-size:.95rem;
+    color:var(--black);
+  }
+  .remove-team{
+    background:none;border:none;cursor:pointer;
+    color:var(--err);font-weight:600;font-size:.85rem;
+    font-family:var(--font-body);
+    padding:4px 6px;border-radius:6px;
+  }
+  .remove-team:hover{background:rgba(192,57,43,.08)}
+
+  /* ---- File input ---- */
+  .file-drop{
+    border:2px dashed var(--border);
+    border-radius:8px;
+    background:#fafaf6;
+    padding:16px;
+    text-align:center;
+    cursor:pointer;
+    transition:border-color .15s,background .15s;
+  }
+  .file-drop:hover{border-color:var(--gold);background:#fffdf5}
+  .file-drop.has-file{border-style:solid;border-color:var(--gold);background:var(--gold-soft)}
+  .file-drop input{display:none}
+  .file-drop .fd-icon{font-size:1.3rem}
+  .file-drop .fd-main{font-weight:600;color:var(--ink);font-size:.92rem;margin-top:2px}
+  .file-drop .fd-sub{color:var(--text-dim);font-size:.8rem;margin-top:2px}
+  .file-drop .fd-name{color:var(--gold);font-weight:700;word-break:break-all}
+
+  /* ---- Add team ---- */
+  .add-team{
+    width:100%;
+    font-family:var(--font-display);
+    font-weight:600;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    font-size:.92rem;
+    color:var(--black);
+    background:#fff;
+    border:2px dashed var(--gold);
+    border-radius:10px;
+    padding:14px;
+    cursor:pointer;
+    transition:background .15s;
+    margin-bottom:8px;
+  }
+  .add-team:hover{background:var(--gold-soft)}
+
+  /* ---- Submit ---- */
+  .submit-btn{
+    width:100%;
+    font-family:var(--font-display);
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    font-size:1.1rem;
+    color:var(--black);
+    background:linear-gradient(135deg,var(--gold-bright),var(--gold));
+    border:none;
+    border-radius:10px;
+    padding:16px;
+    cursor:pointer;
+    margin-top:8px;
+    transition:transform .12s,box-shadow .12s,opacity .15s;
+    box-shadow:0 8px 24px rgba(201,148,10,.3);
+  }
+  .submit-btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 12px 30px rgba(201,148,10,.4)}
+  .submit-btn:disabled{opacity:.6;cursor:not-allowed}
+
+  .form-note{
+    font-size:.82rem;color:var(--text-dim);
+    text-align:center;margin-top:14px;line-height:1.5;
+  }
+  .err-msg{
+    color:var(--err);font-weight:600;font-size:.88rem;
+    margin-top:10px;text-align:center;display:none;
+  }
+
+  /* ---- Overlay / status ---- */
+  .overlay{
+    position:fixed;inset:0;
+    background:rgba(10,9,7,.72);
+    backdrop-filter:blur(3px);
+    display:none;align-items:center;justify-content:center;
+    z-index:50;padding:20px;
+  }
+  .overlay.show{display:flex}
+  .status-card{
+    background:var(--cream);border-radius:14px;
+    max-width:480px;width:100%;
+    padding:34px 28px;text-align:center;
+    box-shadow:0 24px 60px rgba(0,0,0,.5);
+  }
+  .spinner{
+    width:46px;height:46px;margin:0 auto 18px;
+    border:4px solid var(--border);
+    border-top-color:var(--gold);
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .status-card .big{
+    font-family:var(--font-display);font-weight:700;
+    text-transform:uppercase;letter-spacing:1px;
+    font-size:1.5rem;color:var(--black);margin-bottom:8px;
+  }
+  .status-card .check{
+    width:62px;height:62px;margin:0 auto 16px;border-radius:50%;
+    background:var(--ok);display:flex;align-items:center;justify-content:center;
+  }
+  .status-card .check svg{width:34px;height:34px;stroke:#fff;stroke-width:3;fill:none}
+  .status-card p{color:var(--text-mid);margin-bottom:6px}
+  .status-card .recap{
+    text-align:left;background:#fff;border:1px solid var(--border);
+    border-radius:8px;padding:14px 16px;margin:16px 0;
+    font-size:.9rem;
+  }
+  .status-card .recap li{margin-bottom:4px;list-style:none}
+  .status-card .recap li b{color:var(--ink)}
+  .status-card .again-btn{
+    font-family:var(--font-display);font-weight:600;letter-spacing:1px;
+    text-transform:uppercase;font-size:.9rem;
+    background:var(--black);color:#fff;border:none;border-radius:8px;
+    padding:12px 22px;cursor:pointer;margin-top:6px;
+  }
+  .status-card.error .check{background:var(--err)}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="kicker">Father's Day Fiesta 2026 &middot; June 20&ndash;21</div>
+  <h1>Submit Your Team Roster</h1>
+  <p>Upload your official tournament roster below. One submission can include every team your club is bringing. You'll get an email confirmation as soon as it's received.</p>
+</header>
+
+<div class="wrap">
+  <div class="card">
+    <div class="card-pad">
+
+      <div class="section-label">Submitter Info</div>
+      <div class="field">
+        <label for="club">Club <span class="req">*</span></label>
+        <select id="club" required>
+          <option value="" selected disabled>Select your club&hellip;</option>
+          <option>CYA</option>
+          <option>SYA</option>
+          <option>Loudoun</option>
+          <option>Herndon</option>
+          <option>Springfield</option>
+          <option>Vienna</option>
+          <option>Stafford</option>
+          <option>Fredericksburg</option>
+          <option>Westfield AFC</option>
+          <option>ABGC</option>
+          <option>Virginia Skyline FC</option>
+          <option>Deportivo Sterling</option>
+          <option>CM Soccer Club</option>
+          <option>Vikings FC</option>
+          <option>PWSI</option>
+          <option>Gunston</option>
+          <option>Fredericksburg Civils SC</option>
+          <option>NVSC</option>
+          <option value="__other__">Other (type below)</option></select>
+      </div>
+      <div class="field" id="otherClubWrap" style="display:none">
+        <label for="otherClub">Club name <span class="req">*</span></label>
+        <input type="text" id="otherClub" placeholder="Type your club name">
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="subName">Your name <span class="req">*</span></label>
+          <input type="text" id="subName" required placeholder="First and last name">
+        </div>
+        <div class="field">
+          <label for="subEmail">Your email <span class="req">*</span> <span class="hint">(confirmation sent here)</span></label>
+          <input type="email" id="subEmail" required placeholder="you@example.com">
+        </div>
+      </div>
+      <div class="field">
+        <label for="subPhone">Phone <span class="hint">(optional)</span></label>
+        <input type="tel" id="subPhone" placeholder="(555) 555-5555">
+      </div>
+
+      <div class="section-label" style="margin-top:28px">Team Rosters</div>
+      <p style="font-size:.88rem;color:var(--text-mid);margin-bottom:16px">
+        Add one block per team. Submitting a single team? Just fill the first block.
+        Club admin sending several? Use <b>Add another team</b> for each one.
+      </p>
+
+      <div id="teams"></div>
+
+      <button type="button" class="add-team" id="addTeam">+ Add another team</button>
+
+      <button type="button" class="submit-btn" id="submitBtn">Submit Roster<span id="teamCountLabel"></span></button>
+      <div class="err-msg" id="formErr"></div>
+      <div class="form-note">
+        Accepted files: Word (.docx, .doc) or PDF, up to 10&nbsp;MB each.<br>
+        Your submission is private &mdash; only the tournament staff can see it.
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Status overlay -->
+<div class="overlay" id="overlay">
+  <div class="status-card" id="statusCard">
+    <div class="spinner" id="spinner"></div>
+    <div class="big" id="statusTitle">Uploading&hellip;</div>
+    <p id="statusMsg">Sending your roster. Please don't close this window.</p>
+  </div>
+</div>
+
+<script>
+  /* ============================================================
+     CONFIG — paste your deployed Apps Script Web App URL here
+     ============================================================ */
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbzgGnxKJPUJk4s3tc4605rTjhL-uGKXh_tTiUaRNahTi23R1bvZVFRwC8xsjDxwu1k3/exec";
+
+  var AGE_GROUPS = ["U8","U9","U10","U11","U12","U13","U14","U16","U19"];
+  var MAX_BYTES = 10 * 1024 * 1024; // 10 MB
+  var teamCounter = 0;
+
+  function ageOptions(){
+    return '<option value="" selected disabled>Age group&hellip;</option>' +
+      AGE_GROUPS.map(function(a){return '<option>'+a+'</option>';}).join('');
+  }
+
+  function addTeamBlock(){
+    teamCounter++;
+    var n = teamCounter;
+    var div = document.createElement('div');
+    div.className = 'team-block';
+    div.dataset.team = n;
+    div.innerHTML =
+      '<div class="team-head">'+
+        '<span class="team-num">Team '+n+'</span>'+
+        (n>1 ? '<button type="button" class="remove-team" onclick="removeTeam(this)">Remove</button>' : '')+
+      '</div>'+
+      '<div class="row2">'+
+        '<div class="field">'+
+          '<label>Team name <span class="req">*</span></label>'+
+          '<input type="text" class="t-name" placeholder="e.g. CYA Lightning">'+
+        '</div>'+
+        '<div class="field">'+
+          '<label>Age group <span class="req">*</span></label>'+
+          '<select class="t-age">'+ageOptions()+'</select>'+
+        '</div>'+
+      '</div>'+
+      '<div class="field">'+
+        '<label>Coach name <span class="hint">(optional)</span></label>'+
+        '<input type="text" class="t-coach" placeholder="Team coach">'+
+      '</div>'+
+      '<div class="field" style="margin-bottom:14px">'+
+        '<label>Roster file <span class="req">*</span></label>'+
+        '<label class="file-drop">'+
+          '<input type="file" class="t-file" accept=".docx,.doc,.pdf,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword">'+
+          '<div class="fd-icon">&#128206;</div>'+
+          '<div class="fd-main">Tap to choose a file</div>'+
+          '<div class="fd-sub">Word or PDF, up to 10 MB</div>'+
+        '</label>'+
+      '</div>';
+    document.getElementById('teams').appendChild(div);
+
+    div.querySelector('.t-file').addEventListener('change', function(e){
+      var drop = e.target.closest('.file-drop');
+      var f = e.target.files[0];
+      if(!f){ resetDrop(drop); return; }
+      if(f.size > MAX_BYTES){
+        alert('"'+f.name+'" is larger than 10 MB. Please upload a smaller file.');
+        e.target.value=''; resetDrop(drop); return;
+      }
+      drop.classList.add('has-file');
+      drop.querySelector('.fd-icon').innerHTML = '&#9989;';
+      drop.querySelector('.fd-main').className = 'fd-main fd-name';
+      drop.querySelector('.fd-main').textContent = f.name;
+      drop.querySelector('.fd-sub').textContent = (f.size/1024/1024).toFixed(2)+' MB — tap to change';
+    });
+    updateCount();
+  }
+
+  function resetDrop(drop){
+    drop.classList.remove('has-file');
+    drop.querySelector('.fd-icon').innerHTML = '&#128206;';
+    drop.querySelector('.fd-main').className = 'fd-main';
+    drop.querySelector('.fd-main').textContent = 'Tap to choose a file';
+    drop.querySelector('.fd-sub').textContent = 'Word or PDF, up to 10 MB';
+  }
+
+  window.removeTeam = function(btn){
+    btn.closest('.team-block').remove();
+    renumber(); updateCount();
+  };
+
+  function renumber(){
+    document.querySelectorAll('#teams .team-block').forEach(function(b,i){
+      b.querySelector('.team-num').textContent = 'Team '+(i+1);
+    });
+  }
+
+  function updateCount(){
+    var n = document.querySelectorAll('#teams .team-block').length;
+    document.getElementById('teamCountLabel').textContent = n>1 ? ' ('+n+' teams)' : '';
+  }
+
+  document.getElementById('addTeam').addEventListener('click', addTeamBlock);
+
+  document.getElementById('club').addEventListener('change', function(){
+    document.getElementById('otherClubWrap').style.display =
+      this.value === '__other__' ? 'block' : 'none';
+  });
+
+  function readFile(file){
+    return new Promise(function(res, rej){
+      var r = new FileReader();
+      r.onload = function(){ res(r.result.split(',')[1]); };
+      r.onerror = function(){ rej(new Error('read failed')); };
+      r.readAsDataURL(file);
+    });
+  }
+
+  function showErr(msg){
+    var e = document.getElementById('formErr');
+    e.textContent = msg; e.style.display='block';
+    e.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+
+  document.getElementById('submitBtn').addEventListener('click', async function(){
+    document.getElementById('formErr').style.display='none';
+
+    // resolve club
+    var clubSel = document.getElementById('club').value;
+    var club = clubSel === '__other__'
+      ? document.getElementById('otherClub').value.trim()
+      : clubSel;
+    var subName = document.getElementById('subName').value.trim();
+    var subEmail = document.getElementById('subEmail').value.trim();
+    var subPhone = document.getElementById('subPhone').value.trim();
+
+    if(!club){ return showErr('Please select or enter your club.'); }
+    if(!subName){ return showErr('Please enter your name.'); }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(subEmail)){ return showErr('Please enter a valid email address.'); }
+
+    var blocks = Array.from(document.querySelectorAll('#teams .team-block'));
+    if(blocks.length === 0){ return showErr('Please add at least one team.'); }
+
+    var teams = [];
+    for(var i=0;i<blocks.length;i++){
+      var b = blocks[i];
+      var name = b.querySelector('.t-name').value.trim();
+      var age = b.querySelector('.t-age').value;
+      var coach = b.querySelector('.t-coach').value.trim();
+      var fileInput = b.querySelector('.t-file');
+      var file = fileInput.files[0];
+      if(!name){ return showErr('Team '+(i+1)+': please enter a team name.'); }
+      if(!age){ return showErr('Team '+(i+1)+': please choose an age group.'); }
+      if(!file){ return showErr('Team '+(i+1)+': please attach a roster file.'); }
+      teams.push({name:name, age:age, coach:coach, file:file});
+    }
+
+    // build payload
+    showOverlay('uploading');
+    try{
+      var payloadTeams = [];
+      for(var j=0;j<teams.length;j++){
+        var t = teams[j];
+        var b64 = await readFile(t.file);
+        payloadTeams.push({
+          teamName:t.name, ageGroup:t.age, coach:t.coach,
+          fileName:t.file.name, mimeType:t.file.type || 'application/octet-stream',
+          fileData:b64
+        });
+      }
+      var payload = {
+        club:club, submitterName:subName, submitterEmail:subEmail,
+        submitterPhone:subPhone, teams:payloadTeams
+      };
+
+      var resp = await fetch(ENDPOINT, {
+        method:'POST',
+        // text/plain avoids a CORS preflight against Apps Script
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:JSON.stringify(payload)
+      });
+      var data;
+      try{ data = await resp.json(); }catch(e){ data = null; }
+
+      if(data && data.status === 'ok'){
+        showSuccess(club, payloadTeams);
+      } else {
+        var m = (data && data.message) ? data.message : 'Something went wrong on the server.';
+        showFailure(m);
+      }
+    }catch(err){
+      showFailure('Upload failed. Check your connection and try again.');
+    }
+  });
+
+  /* ---- overlay states ---- */
+  function showOverlay(){ document.getElementById('overlay').classList.add('show'); }
+  function hideOverlay(){ document.getElementById('overlay').classList.remove('show'); }
+
+  function showSuccess(club, teams){
+    var card = document.getElementById('statusCard');
+    card.classList.remove('error');
+    var list = teams.map(function(t){
+      return '<li><b>'+escapeHtml(t.teamName)+'</b> &mdash; '+t.ageGroup+'</li>';
+    }).join('');
+    card.innerHTML =
+      '<div class="check"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>'+
+      '<div class="big">Roster Received</div>'+
+      '<p>Thanks, '+escapeHtml(club)+'. We\'ve logged your submission and a confirmation email is on its way.</p>'+
+      '<ul class="recap">'+list+'</ul>'+
+      '<button class="again-btn" onclick="location.reload()">Submit another</button>';
+  }
+
+  function showFailure(msg){
+    var card = document.getElementById('statusCard');
+    card.classList.add('error');
+    card.innerHTML =
+      '<div class="check"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></div>'+
+      '<div class="big">Not Submitted</div>'+
+      '<p>'+escapeHtml(msg)+'</p>'+
+      '<button class="again-btn" onclick="document.getElementById(\'overlay\').classList.remove(\'show\')">Try again</button>';
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g,function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  // start with one team block
+  addTeamBlock();
+</script>
+</body>
+</html>
