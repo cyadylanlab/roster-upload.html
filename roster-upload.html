@@ -73,6 +73,26 @@
     max-width:560px;
     margin-left:auto;margin-right:auto;
   }
+  .masthead-actions{margin-top:22px;position:relative;z-index:1;display:flex;justify-content:center}
+  .dl-roster{
+    display:inline-flex;align-items:center;gap:14px;
+    text-decoration:none;text-align:left;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(245,197,24,.5);
+    border-radius:10px;
+    padding:12px 22px;
+    transition:background .15s,border-color .15s,transform .12s;
+  }
+  .dl-roster:hover{background:rgba(245,197,24,.12);border-color:var(--gold-bright);transform:translateY(-1px)}
+  .dl-roster .dl-icon{
+    font-size:1.2rem;color:var(--gold-bright);
+    background:rgba(245,197,24,.14);
+    width:40px;height:40px;border-radius:8px;
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+  }
+  .dl-roster .dl-main{display:block;font-family:var(--font-display);font-weight:600;letter-spacing:.5px;color:#fff;font-size:1rem}
+  .dl-roster .dl-sub{display:block;color:rgba(255,255,255,.65);font-size:.82rem;margin-top:1px}
+
   /* ---- Card ---- */
   .wrap{max-width:720px;margin:36px auto 0;padding:0 18px}
   .card{
@@ -279,6 +299,15 @@
   <div class="kicker">Father's Day Fiesta 2026 &middot; June 20&ndash;21</div>
   <h1>Submit Your Team Roster</h1>
   <p>Upload your official tournament roster below. One submission can include every team your club is bringing. You'll get an email confirmation as soon as it's received.</p>
+  <div class="masthead-actions">
+    <a class="dl-roster" href="https://www.virginiavalorfc.org/_files/ugd/1df62c_8cf41bfb805240f2951762c4a15d199f.docx?dn=Fiesta_All_Star_Official_Roster_2026.docx">
+      <span class="dl-icon">&#11015;</span>
+      <span>
+        <span class="dl-main">Need the blank roster?</span>
+        <span class="dl-sub">Download the official Word form</span>
+      </span>
+    </a>
+  </div>
 </header>
 
 <div class="wrap">
