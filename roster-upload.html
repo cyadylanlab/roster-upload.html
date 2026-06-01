@@ -73,25 +73,29 @@
     max-width:560px;
     margin-left:auto;margin-right:auto;
   }
-  .masthead-actions{margin-top:22px;position:relative;z-index:1;display:flex;justify-content:center}
-  .dl-roster{
-    display:inline-flex;align-items:center;gap:14px;
+  .masthead-actions{margin-top:22px;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .dl-label{font-family:var(--font-display);font-weight:500;letter-spacing:1px;text-transform:uppercase;font-size:.82rem;color:rgba(255,255,255,.75)}
+  .dl-buttons{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .dl-btn{
+    display:inline-flex;align-items:center;gap:12px;
     text-decoration:none;text-align:left;
     background:rgba(255,255,255,.06);
     border:1px solid rgba(245,197,24,.5);
     border-radius:10px;
-    padding:12px 22px;
+    padding:11px 18px;
     transition:background .15s,border-color .15s,transform .12s;
   }
-  .dl-roster:hover{background:rgba(245,197,24,.12);border-color:var(--gold-bright);transform:translateY(-1px)}
-  .dl-roster .dl-icon{
-    font-size:1.2rem;color:var(--gold-bright);
-    background:rgba(245,197,24,.14);
-    width:40px;height:40px;border-radius:8px;
-    display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+  .dl-btn:hover{background:rgba(245,197,24,.12);border-color:var(--gold-bright);transform:translateY(-1px)}
+  .dl-tag{
+    font-family:var(--font-display);font-weight:700;font-size:.72rem;letter-spacing:1px;
+    color:#fff;width:42px;height:38px;border-radius:7px;flex:0 0 auto;
+    display:flex;align-items:center;justify-content:center;
   }
-  .dl-roster .dl-main{display:block;font-family:var(--font-display);font-weight:600;letter-spacing:.5px;color:#fff;font-size:1rem}
-  .dl-roster .dl-sub{display:block;color:rgba(255,255,255,.65);font-size:.82rem;margin-top:1px}
+  .dl-tag.doc{background:#2b5797}
+  .dl-tag.pdf{background:#b8332a}
+  .dl-txt{display:flex;flex-direction:column}
+  .dl-main{font-family:var(--font-display);font-weight:600;letter-spacing:.5px;color:#fff;font-size:.98rem}
+  .dl-sub{color:rgba(255,255,255,.65);font-size:.8rem;margin-top:1px}
 
   /* ---- Card ---- */
   .wrap{max-width:720px;margin:36px auto 0;padding:0 18px}
@@ -300,13 +304,23 @@
   <h1>Submit Your Team Roster</h1>
   <p>Upload your official tournament roster below. One submission can include every team your club is bringing. You'll get an email confirmation as soon as it's received.</p>
   <div class="masthead-actions">
-    <a class="dl-roster" href="https://www.virginiavalorfc.org/_files/ugd/1df62c_8cf41bfb805240f2951762c4a15d199f.docx?dn=Fiesta_All_Star_Official_Roster_2026.docx">
-      <span class="dl-icon">&#11015;</span>
-      <span>
-        <span class="dl-main">Need the blank roster?</span>
-        <span class="dl-sub">Download the official Word form</span>
-      </span>
-    </a>
+    <div class="dl-label">Need the blank roster? Grab it here:</div>
+    <div class="dl-buttons">
+      <a class="dl-btn" href="https://www.virginiavalorfc.org/_files/ugd/1df62c_8cf41bfb805240f2951762c4a15d199f.docx?dn=Fiesta_All_Star_Official_Roster_2026.docx">
+        <span class="dl-tag doc">DOC</span>
+        <span class="dl-txt">
+          <span class="dl-main">Word version</span>
+          <span class="dl-sub">Type or print to fill</span>
+        </span>
+      </a>
+      <a class="dl-btn" href="https://www.virginiavalorfc.org/_files/ugd/1df62c_6086681118934ee18a26c9ebc1931f73.pdf">
+        <span class="dl-tag pdf">PDF</span>
+        <span class="dl-txt">
+          <span class="dl-main">Fillable PDF</span>
+          <span class="dl-sub">Click &amp; type, then save</span>
+        </span>
+      </a>
+    </div>
   </div>
 </header>
 
@@ -424,9 +438,19 @@
           '<select class="t-age">'+ageOptions()+'</select>'+
         '</div>'+
       '</div>'+
-      '<div class="field">'+
-        '<label>Coach name <span class="hint">(optional)</span></label>'+
-        '<input type="text" class="t-coach" placeholder="Team coach">'+
+      '<div class="row2">'+
+        '<div class="field">'+
+          '<label>Boys / Girls <span class="req">*</span></label>'+
+          '<select class="t-gender">'+
+            '<option value="" selected disabled>Select&hellip;</option>'+
+            '<option value="Boys">Boys (M)</option>'+
+            '<option value="Girls">Girls (F)</option>'+
+          '</select>'+
+        '</div>'+
+        '<div class="field">'+
+          '<label>Coach name <span class="hint">(optional)</span></label>'+
+          '<input type="text" class="t-coach" placeholder="Team coach">'+
+        '</div>'+
       '</div>'+
       '<div class="field" style="margin-bottom:14px">'+
         '<label>Roster file <span class="req">*</span></label>'+
@@ -526,13 +550,15 @@
       var b = blocks[i];
       var name = b.querySelector('.t-name').value.trim();
       var age = b.querySelector('.t-age').value;
+      var gender = b.querySelector('.t-gender').value;
       var coach = b.querySelector('.t-coach').value.trim();
       var fileInput = b.querySelector('.t-file');
       var file = fileInput.files[0];
       if(!name){ return showErr('Team '+(i+1)+': please enter a team name.'); }
       if(!age){ return showErr('Team '+(i+1)+': please choose an age group.'); }
+      if(!gender){ return showErr('Team '+(i+1)+': please choose Boys or Girls.'); }
       if(!file){ return showErr('Team '+(i+1)+': please attach a roster file.'); }
-      teams.push({name:name, age:age, coach:coach, file:file});
+      teams.push({name:name, age:age, gender:gender, coach:coach, file:file});
     }
 
     // build payload
@@ -543,7 +569,7 @@
         var t = teams[j];
         var b64 = await readFile(t.file);
         payloadTeams.push({
-          teamName:t.name, ageGroup:t.age, coach:t.coach,
+          teamName:t.name, ageGroup:t.age, gender:t.gender, coach:t.coach,
           fileName:t.file.name, mimeType:t.file.type || 'application/octet-stream',
           fileData:b64
         });
@@ -581,7 +607,7 @@
     var card = document.getElementById('statusCard');
     card.classList.remove('error');
     var list = teams.map(function(t){
-      return '<li><b>'+escapeHtml(t.teamName)+'</b> &mdash; '+t.ageGroup+'</li>';
+      return '<li><b>'+escapeHtml(t.teamName)+'</b> &mdash; '+t.ageGroup+' '+escapeHtml(t.gender)+'</li>';
     }).join('');
     card.innerHTML =
       '<div class="check"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>'+
