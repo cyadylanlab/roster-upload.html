@@ -121,6 +121,24 @@
     margin-bottom:18px;
   }
   .field{margin-bottom:16px}
+  .roster-req{
+    background:var(--gold-soft);
+    border:1px solid var(--gold);
+    border-left:5px solid var(--gold);
+    border-radius:8px;
+    padding:14px 18px;
+    margin-bottom:16px;
+  }
+  .roster-req strong{
+    display:block;
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:1.05rem;
+    color:var(--black);
+    margin-bottom:5px;
+    letter-spacing:.3px;
+  }
+  .roster-req span{display:block;font-size:.9rem;color:var(--ink);line-height:1.55}
   .field label{
     display:block;
     font-weight:600;
@@ -261,7 +279,15 @@
     max-width:480px;width:100%;
     padding:34px 28px;text-align:center;
     box-shadow:0 24px 60px rgba(0,0,0,.5);
+    position:relative;
   }
+  .status-card .close-x{
+    position:absolute;top:10px;right:14px;
+    background:none;border:none;cursor:pointer;
+    font-size:1.9rem;line-height:1;color:var(--text-dim);
+    padding:4px 8px;border-radius:8px;
+  }
+  .status-card .close-x:hover{background:rgba(0,0,0,.06);color:var(--ink)}
   .spinner{
     width:46px;height:46px;margin:0 auto 18px;
     border:4px solid var(--border);
@@ -288,12 +314,21 @@
   }
   .status-card .recap li{margin-bottom:4px;list-style:none}
   .status-card .recap li b{color:var(--ink)}
+  .status-card .status-actions{display:flex;gap:10px;justify-content:center;margin-top:8px;flex-wrap:wrap}
   .status-card .again-btn{
     font-family:var(--font-display);font-weight:600;letter-spacing:1px;
     text-transform:uppercase;font-size:.9rem;
-    background:var(--black);color:#fff;border:none;border-radius:8px;
-    padding:12px 22px;cursor:pointer;margin-top:6px;
+    background:#fff;color:var(--black);border:1.5px solid var(--black);border-radius:8px;
+    padding:12px 22px;cursor:pointer;
   }
+  .status-card .again-btn:hover{background:#f3efe6}
+  .status-card .done-btn{
+    font-family:var(--font-display);font-weight:600;letter-spacing:1px;
+    text-transform:uppercase;font-size:.9rem;
+    background:var(--black);color:#fff;border:1.5px solid var(--black);border-radius:8px;
+    padding:12px 28px;cursor:pointer;
+  }
+  .status-card .done-btn:hover{opacity:.88}
   .status-card.error .check{background:var(--err)}
 </style>
 </head>
@@ -304,19 +339,19 @@
   <h1>Submit Your Team Roster</h1>
   <p>Upload your official tournament roster below. One submission can include every team your club is bringing. You'll get an email confirmation as soon as it's received.</p>
   <div class="masthead-actions">
-    <div class="dl-label">Need the blank roster? Grab it here:</div>
+    <div class="dl-label">Need a roster template? Grab one here (or use your official NCSL roster):</div>
     <div class="dl-buttons">
       <a class="dl-btn" href="https://www.virginiavalorfc.org/_files/ugd/1df62c_8cf41bfb805240f2951762c4a15d199f.docx?dn=Fiesta_All_Star_Official_Roster_2026.docx">
         <span class="dl-tag doc">DOC</span>
         <span class="dl-txt">
-          <span class="dl-main">Word version</span>
+          <span class="dl-main">Word template</span>
           <span class="dl-sub">Type or print to fill</span>
         </span>
       </a>
       <a class="dl-btn" href="https://www.virginiavalorfc.org/_files/ugd/1df62c_6086681118934ee18a26c9ebc1931f73.pdf?dn=Fiesta_Official_Roster_2026_Fillable.pdf">
         <span class="dl-tag pdf">PDF</span>
         <span class="dl-txt">
-          <span class="dl-main">Fillable PDF</span>
+          <span class="dl-main">Fillable PDF template</span>
           <span class="dl-sub">Click &amp; type, then save</span>
         </span>
       </a>
@@ -333,24 +368,24 @@
         <label for="club">Club <span class="req">*</span></label>
         <select id="club" required>
           <option value="" selected disabled>Select your club&hellip;</option>
-          <option>CYA</option>
-          <option>SYA</option>
-          <option>Loudoun</option>
-          <option>Herndon</option>
-          <option>Springfield</option>
-          <option>Vienna</option>
-          <option>Stafford</option>
-          <option>Fredericksburg</option>
-          <option>Westfield AFC</option>
           <option>ABGC</option>
-          <option>Virginia Skyline FC</option>
-          <option>Deportivo Sterling</option>
           <option>CM Soccer Club</option>
-          <option>Vikings FC</option>
-          <option>PWSI</option>
-          <option>Gunston</option>
+          <option>CYA</option>
+          <option>Deportivo Sterling</option>
+          <option>Fredericksburg</option>
           <option>Fredericksburg Civils SC</option>
+          <option>Gunston</option>
+          <option>Herndon</option>
+          <option>Loudoun</option>
           <option>NVSC</option>
+          <option>PWSI</option>
+          <option>Springfield</option>
+          <option>Stafford</option>
+          <option>SYA</option>
+          <option>Vienna</option>
+          <option>Vikings FC</option>
+          <option>Virginia Skyline FC</option>
+          <option>Westfield AFC</option>
           <option value="__other__">Other (type below)</option></select>
       </div>
       <div class="field" id="otherClubWrap" style="display:none">
@@ -373,6 +408,10 @@
       </div>
 
       <div class="section-label" style="margin-top:28px">Team Rosters</div>
+      <div class="roster-req">
+        <strong>Ready to submit your club admin / registrar signed official roster?</strong>
+        <span>Rosters on the Fiesta template (Word or PDF) must be signed by your club administrator or registrar &mdash; not the coach. Official NCSL rosters are also accepted and do <b>not</b> need a registrar signature.</span>
+      </div>
       <p style="font-size:.88rem;color:var(--text-mid);margin-bottom:16px">
         Add one block per team. Submitting a single team? Just fill the first block.
         Club admin sending several? Use <b>Add another team</b> for each one.
@@ -600,31 +639,55 @@
   });
 
   /* ---- overlay states ---- */
-  function showOverlay(){ document.getElementById('overlay').classList.add('show'); }
+  var overlayBusy = false; // true while uploading; blocks accidental dismiss
+  function showOverlay(){ overlayBusy = true; document.getElementById('overlay').classList.add('show'); }
   function hideOverlay(){ document.getElementById('overlay').classList.remove('show'); }
 
+  // Click the dark backdrop to dismiss once a submission has finished
+  document.getElementById('overlay').addEventListener('click', function(e){
+    if(e.target === this && !overlayBusy){ dismissOverlay(); }
+  });
+  // Esc also dismisses a finished submission
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && !overlayBusy){ dismissOverlay(); }
+  });
+
   function showSuccess(club, teams){
+    overlayBusy = false;
     var card = document.getElementById('statusCard');
     card.classList.remove('error');
     var list = teams.map(function(t){
       return '<li><b>'+escapeHtml(t.teamName)+'</b> &mdash; '+t.ageGroup+' '+escapeHtml(t.gender)+'</li>';
     }).join('');
     card.innerHTML =
+      '<button class="close-x" onclick="dismissOverlay()" aria-label="Close">&times;</button>'+
       '<div class="check"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>'+
       '<div class="big">Roster Received</div>'+
       '<p>Thanks, '+escapeHtml(club)+'. We\'ve logged your submission and a confirmation email is on its way.</p>'+
       '<ul class="recap">'+list+'</ul>'+
-      '<button class="again-btn" onclick="location.reload()">Submit another</button>';
+      '<div class="status-actions">'+
+        '<button class="again-btn" onclick="location.reload()">Submit another</button>'+
+        '<button class="done-btn" onclick="dismissOverlay()">Done</button>'+
+      '</div>';
+  }
+
+  function dismissOverlay(){
+    overlayBusy = false;
+    document.getElementById('overlay').classList.remove('show');
   }
 
   function showFailure(msg){
+    overlayBusy = false;
     var card = document.getElementById('statusCard');
     card.classList.add('error');
     card.innerHTML =
+      '<button class="close-x" onclick="dismissOverlay()" aria-label="Close">&times;</button>'+
       '<div class="check"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></div>'+
       '<div class="big">Not Submitted</div>'+
       '<p>'+escapeHtml(msg)+'</p>'+
-      '<button class="again-btn" onclick="document.getElementById(\'overlay\').classList.remove(\'show\')">Try again</button>';
+      '<div class="status-actions">'+
+        '<button class="done-btn" onclick="dismissOverlay()">Try again</button>'+
+      '</div>';
   }
 
   function escapeHtml(s){
